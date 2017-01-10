@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Pokemon Battler</title>
+
+<style type="text/css">
+body {
+	font-family:Verdana, Geneva, sans-serif;
+	height:500px;
+	background-image:url(images/texture.jpg);
+	background-repeat:repeat;
+}
+audio {
+	position:fixed;
+	left:-200px;
+	transition: all 1s ease-in-out;
+}
+
+audio:hover {
+	left:0px;
+}
+
+#gamebox {
+	background-image:url(images/background.jpg);
+	border: solid thick #003;
+	width:600px;
+	height:400px;
+	padding:20px;
+	font-family:"standard 07_55";
+	z-index:-1;
+	margin-left:25%;
+	margin-right:auto;
+	position:relative;
+	top:100px;
+	display:none;
+	
+	
+}
+#container {
+	font-family:"standard 07_55";
+	background-image:url(images/texture1.jpg);
+	background-repeat:repeat;
+	border-left:thick #000 ridge;
+	border-right:thick #000 ridge;
+	z-index:2;
+	width: 700px;
+  	margin-left: auto;
+ 	margin-right: auto;
+	text-align:center;
+	position:relative;
+
+  
+		
+}
+
+#opponent_pokemon_name{
+	font-size:16px;
+}
+
+#opponent_info {
+	width:290px;
+	height:100px;
+	float:left;	
+	margin-right:40px;
+	padding:10px 5px 5px 15px;
+	font-family:"standard 07_55";
+}
+#opponent_image {
+	
+	width:250px;
+	height:150px;
+	float:left;	
+}
+
+#my_image {
+	width:250px;
+	height:150px;
+	float:left;
+	margin-right:40px;
+	
+}
+
+#my_info {
+	width:290px;
+	height:100px;
+	float:left;
+	margin-top:40px;
+	margin-bottom:10px;
+	padding:5px 5px 5px 15px;
+	font-family:"standard 07_55";
+	font-size:18px;
+	border:ridge medium solid #333;
+}
+
+#message_box {
+	width:560px;
+	height:60px;
+	clear:both;
+	padding:20px;
+	
+}
+
+
+form {
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#my_flag {
+	float:left;
+}	
+
+#opponent_flag {
+	float:left;	
+}
+
+#my_name {
+	margin-top:10px;
+	margin-left:5px;
+	margin-right:1px;
+	float:left;
+	font-size:16px;
+}
+
+
+#my_age {
+	margin-top:10px;
+	float:left;
+	font-size:16px;
+	
+}
+#my_pokemon_front_img {
+	float: left;
+	margin-top:5px;
+
+}
+#my_pokemon_name {
+	float:left;
+	margin-left:5px;
+	margin-top:10px;
+	text-transform:capitalize;
+	font-size:16px;
+	}
+	
+#my_hp {
+	float:right;
+	margin-top:5px;
+	margin-right:5px;
+}
+
+#my_strenght {
+	float:right;
+	margin-right:5px;
+	margin-top:15px;
+	font-size:14px;
+}
+
+#opponent_name {
+	margin-top:10px;
+	margin-left:5px;
+	margin-right:1px;
+	float:left;
+	font-size:16px;
+}
+
+#opponent_age {
+	margin-top:10px;
+	float:left;
+	font-size:16px;
+	
+}
+#opponent_pokemon_front_img {
+	float: left;
+	margin-top:10px;
+
+}
+#opponent_pokemon_name {
+	float:left;
+	margin-left:5px;
+	margin-top:15px;
+	text-transform:capitalize;
+	font-size:16px;
+	}
+	
+#opponent_hp {
+	float:right;
+	margin-top:5px;
+	margin-right:5px;
+	font-size:18px;
+}
+
+#opponent_strenght {
+	float:right;
+	margin-right:5px;
+	margin-top:20px;
+	font-size:14px;
+}
+
+a {
+	
+	
+	border:outset #CCC medium;
+	cursor:pointer;	
+	text-align:center;
+	width:100px;
+	text-decoration:none;
+	color:#000000;
+}
+
+a:hover {
+	background-color:#003;
+	color:#FFF;
+}
+a:active {
+		border:inset #CCC medium;
+
+}
+
+/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ @font-face {font-family:"standard 07_55";src:url("stan0755.eot?") format("eot"),url("stan0755.woff") format("woff"),url("stan0755.ttf") format("truetype"),url("stan0755.svg#Standard0755") format("svg");font-weight:normal;font-style:normal;}
+
+</style>
+<script type="text/javascript" language="javascript">
+var myhp = 100;
+var opponenthp = 100;
+var pokemon1;
+var pokemons = new Array("Pikachu","Charmander","Squirtle","Bulbasaur");
+var countries = new Array("Australia", "France","Germany","Ireland", "UK", "USA");
+var names = new Array("James","Jack","Ann","Sarah", "Michelle", "Mark", "Will", "Julie" ,"Kate", "Harry");
+var myname;
+var name1;
+var country1;
+var pokemon2;
+
+
+var opponent_defence;
+var opponent_attack;
+var defence;
+var attack;
+
+var your_attack_score;
+var your_defence_score;
+var opponent_attack_score;
+var opponent_defence_score;
+var attack1;
+var attack2;
+var attack3;
+var attack4;
+
+function fill_in_name(name){
+	myname = name;
+	document.getElementById("my_name").innerHTML =  name;	
+}
+function fill_in_age(age){
+	document.getElementById("my_age").innerHTML = ", " + age + ".";	
+}
+
+
+function set_flag(country) {
+	document.getElementById("my_flag").innerHTML = '<img src="images/' + country + '.png" height="40"  />'   ;
+}
+
+function pokemon_select(pokemon) {
+	pokemon1 = pokemon;
+	document.getElementById('my_pokemon_front_img').innerHTML = '<img src="images/' + pokemon + '_front.png" height="30" />' ;
+	document.getElementById('my_pokemon_name').innerHTML = pokemon ;
+	document.getElementById('my_image').innerHTML = '<img src="images/' + pokemon + '_back.png" height="150" />'
+	
+}
+
+function show_hp() {
+	document.getElementById('my_hp').innerHTML = 'HP = ' + myhp;
+}
+
+
+function get_strenghts(strenght) {
+	defence = strenght;
+	attack = (10-defence);
+	document.getElementById('my_strenght').innerHTML = 'Attk=' + attack + '/Dfnce=' + defence;
+	
+}
+
+
+
+
+function get_opponent_strenghts(strenght1) {
+	opponent_defence = strenght1;
+	opponent_attack = (10-strenght1);
+	
+}
+
+function get_attack_scores() {
+	opponent_attack_score = (Math.floor(Math.random() * (20 - 10 + 1) + 10));
+	opponent_defence_score = (Math.floor(Math.random() * (20 - 10 + 1) + 10));
+	your_attack_score = (Math.floor(Math.random() * (20 - 10 + 1) + 10));
+	your_defence_score = (Math.floor(Math.random() * (20 - 10 + 1) + 10));
+	
+}
+
+
+function get_opponent_name() {
+	name1 = names[Math.floor( (Math.random()*9)+0 )];
+}
+function get_opponent_country() {
+	country1 = countries[Math.floor( (Math.random()*5)+0 )]; }
+
+function create_opponent() {
+	
+		get_opponent_name();
+	get_opponent_strenghts(Math.floor( (Math.random()*10)+1 ));
+	get_opponent_country();
+	
+	opponent_pokemon = pokemons[Math.floor( (Math.random()*3)+0 )];
+	pokemon2=opponent_pokemon; 
+	document.getElementById('opponent_name').innerHTML = name1;
+	document.getElementById('opponent_age').innerHTML = ', ' + (Math.floor( (Math.random()*30)+14 ));
+	document.getElementById('opponent_flag').innerHTML = '<img src="images/' + country1 + '.png" height="40"  />'   ; 
+	document.getElementById('opponent_pokemon_name').innerHTML = opponent_pokemon;
+	document.getElementById('opponent_pokemon_front_img').innerHTML = '<img src="images/' + opponent_pokemon + '_front.png" height="30" />' ;
+	document.getElementById('opponent_image').innerHTML = '<img src="images/' + opponent_pokemon + '_front.png" height="150" />' ;
+	document.getElementById('opponent_strenght').innerHTML = 'Attk=' + opponent_attack + '/Dfnce=' + opponent_defence;
+	document.getElementById('my_strenght').innerHTML = 'Attk=' + attack + '/Dfnce=' + defence;
+	document.getElementById('opponent_hp').innerHTML =  'HP = ' + opponenthp;
+	
+}
+
+function output(message) {
+	document.getElementById('message_box').innerHTML = message;
+	
+}
+
+function begin() {
+	output('Welcome ' + myname + '! Your opponent is ' + name1 + ' from ' + country1 + '. Flip a coin to see who attacks first! <a id="flip_btn" onclick="flip();" > Flip!</a>');
+	document.getElementById('gamebox').style.display = 'block';
+	document.getElementById('gamebox').style.zIndex = '3';
+		document.getElementById('container').style.display = 'none';
+		get_attack_scores();
+
+	
+}
+
+function validate(){
+	if ( document.getElementById("name_field").value == '' )
+	
+	{alert('Oops, it appears you have forgotten to enter your name. Please make sure to fill it in and try again.');}
+	
+	else if ( document.getElementById("age_input").value == '' )
+		{alert('Oops, it appears you have forgotten to enter your age. Please make sure to fill it in and try again.');}
+		
+	else if ( pokemon1 == null)
+		{alert('Oops, it appears you have forgotten to select a pokemon. Select a pokemon and try again.');}
+	
+	else { begin(); }
+		
+
+}
+
+var coinflip;
+
+function flip() {
+	coinflip = Math.round( (Math.random()*1)+0 );
+	
+	if (coinflip == 1)
+	{
+	output('You have won. You can attack first. <a type="button" onclick="yourattackchoice()" > Continue </a>' )	
+	}
+	
+	if (coinflip == 0)
+	{
+	output('You have lost. ' + name1 + ' gets to attack first. <a type="button" onClick="opponentattackchoice(); opponentattack(1)" > Continue </a>' )	
+	}
+}
+
+
+
+
+
+function yourattackchoice() {
+		if (pokemon1 == 'Pikachu')
+	{ attack1 = 'Lightning Blast'
+		attack2 = 'Electrify'  };
+		
+			if (pokemon1 == 'Squirtle')
+	{ attack1 = 'Surf'
+		attack2 = 'Water Cannon'  };
+		
+			if (pokemon1 == 'Bulbasaur')
+	{ attack1 = 'Leech Seed'
+		attack2 = 'Vine Whip'  };
+		
+			if (pokemon1 == 'Charmander')
+	{ attack1 = 'Fire Whirl'
+		attack2 = 'Ember'  };
+		
+		
+		
+	output('Choose your attack. <a type="button" onclick="get_attack_scores(); yourattack(1);">' + attack1 + '</a> or <a type="button" onclick="get_attack_scores(); yourattack(2);">' + attack2 + '</a>');
+	
+}  
+
+function opponentattackchoice() {
+	
+	if (pokemon2 == 'Pikachu')
+	{ attack3 = 'Lightning Blast'
+		attack4 = 'Electrify'  };
+		
+			if (pokemon2 == 'Squirtle')
+	{ attack3 = 'Surf'
+		attack4 = 'Water Cannon'  };
+		
+			if (pokemon2 == 'Bulbasaur')
+	{ attack3 = 'Leech Seed'
+		attack4 = 'Vine Whip'  };
+		
+			if (pokemon2 == 'Charmander')
+	{ attack3 = 'Fire Whirl'
+		attack4 = 'Ember'  };
+		
+}
+
+function yourattack(x) {
+	opponenthp -= (your_attack_score);
+	document.getElementById('opponent_hp').innerHTML =  'HP = ' + opponenthp;	
+	
+	
+	if (x==1)
+	{output(pokemon1 + ' used ' + attack1  + '. ' + name1 + '&apos;s ' + pokemon2 + ' lost ' + (your_attack_score) + ' health points. <br /> <a type="button" onclick="opponentattackchoice(2); get_attack_scores(); opponentattack(2);" > Continue </a>'); }
+	
+	if (x==2)
+	{output(pokemon1 + ' used ' + attack2  + '. ' + name1 + '&apos;s ' + pokemon2 + ' lost ' + (your_attack_score) + ' health points. <br /> <a type="button" onclick="opponentattackchoice(1); get_attack_scores(); opponentattack(1);" > Continue </a>'); }
+
+if (opponenthp <= 0 )
+	{
+		output( name1 + '&apos;s ' + pokemon2 + ' has fainted. Congratulations, you win! Would you like to play another match? <a onclick="restart()">Yes</a> or <a href="http://www.youtube.com/watch?v=oHg5SJYRHA0">No</a>');
+	}
+	
+}
+var opponent_damage;
+function opponentattack(x){
+	var opntdmg = new Array;
+	opntdmg[0] = ( Math.abs((your_attack_score)+Math.round((Math.random()*4)+1)) );
+	opntdmg[1] = ( Math.abs((your_attack_score)-Math.round((Math.random()*3)+1)) );
+
+	opponent_damage = opntdmg[Math.round(Math.random())]
+		myhp -= (opponent_damage);
+	document.getElementById('my_hp').innerHTML =  'HP = ' + myhp;	
+	
+	
+	if (x==1)
+	{output(name1 + '&apos;s ' + pokemon2 + ' used ' + attack3  + '. ' + pokemon1 + ' lost ' + (opponent_damage) + ' health points. <br /> <a type="button" onclick="yourattackchoice()" > Continue </a>'); }
+	
+	if (x==2)
+	{output(name1 + '&apos;s ' + pokemon2 + ' used ' + attack4  + '. ' + pokemon1 + ' lost ' + (opponent_damage) + ' health points. <br /> <a type="button" onclick="yourattackchoice()" > Continue </a>'); }
+	
+	if (myhp <= 0)
+{
+	output('Unfortunately you have lost this battle. Better luck next time. Try again? <a onclick="restart()">Yes</a> or <a href="http://www.youtube.com/watch?v=oHg5SJYRHA0">No</a> '); 
+	
+}
+	
+	}
+	
+
+function restart(){
+	document.getElementById('gamebox').style.display = 'none';
+	document.getElementById('gamebox').style.zIndex = '-1';
+		document.getElementById('container').style.display = 'block';
+		myhp = 100;
+		opponenthp = 100;
+	
+}
+
+
+
+
+</script>
+
+
+</head>
+
+<body>
+<audio controls="controls" loop="loop" autoplay="autoplay">
+  <source src="pokemon.mp3" type="audio/mpeg" />
+</audio>
+<div id="container" >
+<img src="images/pokemon_logo.png" width="600" /> <br /><br />
+
+<form>
+Fill in your details below to begin. <br /><br />
+Nickname: <input id="name_field" type="text" size="4" maxlength="8" onchange="fill_in_name(this.value)" /> (max 8 characters) <br /><br />
+
+Age: <input id="age_input" type="text" size="1" width="1" maxlength="2" onchange="this.value = this.value.replace(/[^0-9]/g, ''); fill_in_age(this.value)" /> <!-- Code to prevent alphabet input in the numeric field taken from http://stackoverflow.com/questions/6168655/ultimate-numbers-only-textfield --> <br /><br />
+
+Country: <select id="country" name="country" onchange="set_flag(this.value)"> <br /><br />
+<option value="australia">Australia</option>
+<option value="france">France</option>
+<option value="germany" >Germany</option>
+<option selected="selected" value="ireland">Ireland</option>
+<option value="uk">United Kingdom</option>
+<option value="usa">United States</option>
+</select> <br /><br />
+
+Choose your pokemon: <br /> 
+<img src="images/Pikachu_front.png" alt="Pikachu" width="90" /> 
+<img src="images/Charmander_front.png" alt="Charmander" width="90" />
+ <img src="images/Squirtle_front.png" alt="Squirtle" width="75" /> 
+ <img src="images/Bulbasaur_front.png" width="90" alt="Bulbasaur" /> <br />
+ 
+<input type="radio" name="pokemon_radio" id="Pikachu" value="Pikachu" onclick="pokemon_select(this.value)" /> Pikachu<input type="radio" name="pokemon_radio" value="Charmander" onclick="pokemon_select(this.value)" /> Charmander
+<input type="radio" name="pokemon_radio" value="Squirtle" onclick="pokemon_select(this.value)" /> Squirtle
+<input type="radio" name="pokemon_radio" value="Bulbasaur" onclick="pokemon_select(this.value)" /> Bulbasaur<br /> <br />
+Choose your strength: <br />
+Attack<input type="range" min="0" max="10" name="strength" width="500" id="strenght_slider" /> Defence
+<br /><br /> <a onclick="set_flag(document.getElementById('country').value); show_hp(); get_strenghts(document.getElementById('strenght_slider').value) ; create_opponent(); validate();">Begin</a> <br />.
+
+</form>
+</div>
+
+<div id="gamebox">
+
+<div id="opponent_info">
+	<div id="opponent_details">
+
+		<div id="opponent_flag"></div>
+		<div id="opponent_name"></div>
+		<div id="opponent_age"></div>
+        <div id="opponent_hp"></div>
+	</div> <br /><br />
+    <div id="opponent_pokemon_front_img"> </div>
+    <div id="opponent_pokemon_name"> </div>
+    <div id="opponent_strenght"></div>
+</div>
+
+<div id="opponent_image">
+<img src="images/Bulbasaur_front.png" height="150" />
+</div>
+
+<div id="my_image">
+
+</div>
+
+<div id="my_info">
+	<div id="my_details">
+
+		<div id="my_flag"></div>
+		<div id="my_name"></div>
+		<div id="my_age"></div>
+        <div id="my_hp"></div>
+      
+	</div> <br /><br />
+    <div id="my_pokemon_front_img"> </div>
+    <div id="my_pokemon_name"> </div>
+    <div id="my_strenght"></div>
+</div>
+
+<div id="message_box">
+
+</div>
+
+</div>
+</body>
+</html>
+<!-- All images, pokemon names, and game format are copyright of 4kids TV and their respective owners. --> 
